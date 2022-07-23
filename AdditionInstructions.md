@@ -54,8 +54,10 @@ Narrative Structure.**
 #### The Grading Reference
 > A. What is the URL of your narrative visualization?
 [**1 point**] Does the URL connect to a functioning web page?
+
 > B. Upload a PDF file essay describing your narrative visualization as required by the assignment instructions.
 [**5 points**] Does the essay state what messaging was intended by the narrative visualization?
+
 > C. Narrative Structure
 [2 points] Does the essay indicate which structure the narrative visualization was designed to follow (martini glass, interactive slide show or drop-down story)?
 
