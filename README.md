@@ -28,11 +28,11 @@ The narrative visualization should follow one of the three effective narrative v
 - an interactive slideshow, where user exploration is allowed at some or all of the steps of the story, or
 - a drill down story. which presents an overview and allows the user to explore different storylines from there.
 
-You must use the D3 library to construct your pages. You cannot use Tableau Stories, Vega, Vega-Lite, Ellipses or any other high-level tool designed for data visualization to implement your narrative visualization. The only other libraries allowed for this assignment are d3-annotation and topoJSON Client. No other library besides d3 (any version), d3-annotation and topoJSON Client will be allowed on this assignment.
+You **must** use the D3 library to construct your pages. You cannot use Tableau Stories, Vega, Vega-Lite, Ellipses or any other high-level tool designed for data visualization to implement your narrative visualization. The only other libraries allowed for this assignment are [d3-annotation](https://d3-annotation.susielu.com/) and [topoJSON Client](https://github.com/topojson/topojson-client). No other library besides d3 (any version), d3-annotation and topoJSON Client will be allowed on this assignment.
 
 The narrative visualization should be built with scenes, annotations, parameters, and triggers.
 
-- The scenes should follow a template for visual consistency and follow an order to best convey the message. One way to implement different scenes is to make each a separate web page. Another way is to use d3.select(id).html = "" to clear the contents of a container element (e.g. an SVG element) and then repopulate that element using .append().
+- The scenes should follow a template for visual consistency and follow an order to best convey the message. One way to implement different scenes is to make each a separate web page. Another way is to use **d3.select(id).html = ""** to clear the contents of a container element (e.g. an SVG element) and then repopulate that element using .**append()**.
 
 - The annotations should follow a template for visual consistency from scene to scene. These annotations should also highlight and reinforce specific data items or trends that make the important points for the desired messaging of the narrative visualization. The lessons on d3 popups can be helpful on how to to make and place annotations, but as an annotation, they should appear as part of the scene and not have to wait for a mouseover event.
 
