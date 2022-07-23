@@ -1,21 +1,6 @@
 # srasi1.github.io
 CS416_Narrative_Viz - UIUC Data Viz D3 Final Project
 
-**you can only have the ```d3``` and ```d3-annotation``` script headers in your projects and nothing more.**
-
-The only three libraries that you can use in your narrative visualization project are the following:
-
-- d3, any version, available at https://d3js.org
-- d3-annotation, Version 2.x, available at https://d3-annotation.susielu.com
-- [Newly Added] topoJSON-client, Version 3.x, available at https://github.com/topojson/topojson-client
-
-
-As for CSS files:
-
-- Any CSS files that you write yourself are allowed to be included.
-- CSS frame-works such bootstrap are not allowed to be used, even only for their CSS files. Such CSS files can (a) cause you to miss gaining the necessary experience and learning the fundamentals and over-fit you to a specific library, and (b) make the implementations significantly easier for students using them which is not fair to other students.
-
-
 
 # Instructions
 ### Overview
