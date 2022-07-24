@@ -1,2 +1,33 @@
-Hello Satish - welcome
-Just testing
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <!--script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script-->
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+    </head>
+    <body onload='init()'>
+        <script>
+            async function init() {
+
+                //var x = d3.scaleLinear().domain([0, 6]).range([0, 150]);
+                //var y = d3.scaleLinear().domain([0, 42]).range([300, 0]);
+
+                //const data = await d3.csv("data/athlete_events.csv");
+                const data = await d3.csv("/Users/sreddyasi/VSCodeProjects/srasi1.github.io/data/athlete_events.csv");
+                //console.log(data);
+                
+                d3.select('body')
+                  .selectAll('p')
+                  .data(data)
+                  .enter()
+                  .append('p')
+                  .html(function(d, i) { return (
+                    'Name: ' + d.Name + " " +
+                    'Country: ' + d.NOC + " "
+                  ); });
+            }
+        </script>
+
+    </body>
+</html>
