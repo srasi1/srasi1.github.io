@@ -5,17 +5,19 @@
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <!--script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script-->
         <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <script src="js/YearCountry.js"></script>
+        <script src="js/CountryOverall.js"></script>
     </head>
     <body onload='init()'>
         <script>
             async function init() {
 
-                //var x = d3.scaleLinear().domain([0, 6]).range([0, 150]);
-                //var y = d3.scaleLinear().domain([0, 42]).range([300, 0]);
+                var x = d3.scaleLinear().domain([1890, 2020]).range([0, 150]);
+                var y = d3.scaleLinear().domain([0, 42]).range([300, 0]);
 
                 //const data = await d3.csv("data/athlete_events.csv");
-                const data = await d3.csv("/Users/sreddyasi/VSCodeProjects/srasi1.github.io/data/athlete_events.csv");
-                //console.log(data);
+                const data = await d3.csv('https://srasi1.github.io/data/athlete_events.csv');
+                //const data = await d3.csv("https://raw.githubusercontent.com/srasi1/srasi1.github.io/main/data/athlete_events.csv");
                 
                 d3.select('body')
                   .selectAll('p')
@@ -23,12 +25,10 @@
                   .enter()
                   .append('p')
                   .html(function(d, i) { return (
-                    //'Name: ' + d.Name + " " +
-                    //'Country: ' + d.NOC + " "
-                    d
+                    'Name: ' + d.Name + " " +
+                    'Country: ' + d.NOC + " "
                   ); });
             }
         </script>
-
     </body>
 </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<div>
+<h1 style="text-align:center;color:black;font-family:sans-serif;font-size:300%">120 Years of Olympics</h1>
+</div>
+<link rel="stylesheet" type="text/css" href="index.css">
+<script src="js/CountryOverallCopy.js"></script>
+
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<script>
+	var data1 = null;
+</script>
+</head>
+<body>
+
+<div class="tab">
+	<button class="tablinks" onclick="ShowPage(event, 'Overview')">Gun Violence highlight across the Country</button>
+
+</div>
+<div id="Overview" class="tabcontent">
+	<div id="tooltip" >Hello</div>
+	<p>Gun violence in the United States results in tens of thousands of deaths and injuries annually and was the leading cause of death for children 19 and younger in 2020. More information can be found <a href="https://en.wikipedia.org/wiki/Gun_violence_in_the_United_States">here</a>. Below map of the USA shows an overview of the spread of the cases across the country.
+	</p>
+	<hr>
+</div>
+
+<div id="MonthlyCase" class="tabcontent">
+  <div id="tooltip"></div>
+	<p>This page will give you the ability to analyze the Gun Violence cases in the selected state, month by month, for the last 3 years.
+	</p>
+	<hr>
+</div>
+
+<div id="CountyDetail" class="tabcontent">
+	<p>This page will give you the ability to have more granular level of Gun Violence related information for a selected state in the USA. Once you select a state it will list down all the counties that had any cases in last 3 years. If you hover over a specific 
+	county you can see the total number of cases and deaths that county had so far. 
+	</p>
+	<hr>
+</div>
+<script>
+function ShowPage(evt, visName) {
+    var i, tabcontent, tablinks;
+	d3.select("svg").remove();
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(visName).style.display = "block";
+	if(evt!==0)
+		evt.currentTarget.className += " active";
+		
+	if(visName==='CountyDetail')
+		CountyDetail.display();	
+	if(visName==='MonthlyCase')
+		MonthlyCase.display();
+	if(visName==='Overview')
+	{
+        overview.display();
+		tablinks[0].className += " active";}
+}
+ShowPage(0,'Overview');
+</script>
+
+</body>
+</html>
