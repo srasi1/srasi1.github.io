@@ -58,13 +58,13 @@ if(y !== undefined)
 }
 
 
-var maxcase = 0, maxCountry = '';
+var maxMedals = 0, maxCountry = '';
 for(i = 0; i < countryList.length; i++)
 {
 	var x = parseInt(countryList[i]["totalMedals"]);
-	if (maxcase < x)
+	if (maxMedals < x)
 	{
-		maxcase = x;
+		maxMedals = x;
 		maxCountry = countryList[i]["NOC"]
 	}
 }
