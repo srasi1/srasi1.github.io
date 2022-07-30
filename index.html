@@ -1,34 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
+        <div>
+            <h1 style="text-align:center;color:rgb(73, 12, 130);font-family:Helvetica;font-size:large">
+                120 Years of Olympics - Winners (1896 - 2016)
+            </h1>
+        </div>
+        
         <script src="https://d3js.org/d3.v5.min.js"></script>
-        <!--script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script-->
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+        <style> rect {fill: lightblue; stroke: black; }</style>
+        
+        <link rel="stylesheet" type="text/css" href="css/main.css">
         <script src="js/YearCountry.js"></script>
+        <!--script src="js/YearCountry.js"></script-->
         <script src="js/CountryOverall.js"></script>
+        
     </head>
-    <body onload='init()'>
+    <svg width=8000 height=6000></svg>
+    <body>
+
+        <div class="tab">
+            <button class="tablinks" onclick="DisplayPage(event, 'Overall')">All-time Highest Medals Winners by Country</button>
+            <button class="tablinks" onclick="DisplayPage(event, 'YearCountry')">Yearly Highest Medals Winners by Country</button>
+            <!--button class="tablinks" onclick="DisplayPage(event, 'Overall')">Highest Medals Winners by Country</button-->
+        </div>
+
+        <div id="Overall" class="tabcontent">
+            <div id="tooltip">Hello</div>
+            <p>All-time Highest number of medals winners by Country</p>
+            <hr>
+        </div>
+
+        <div id="YearCountry" class="tabcontent">
+            <div id="tooltip">Hello</div>
+            <p>Yearly Highest number of medals winners by Country</p>
+            <hr>
+        </div>
+
         <script>
-            async function init() {
+            function DisplayPage(evnt, pageName) {
+                var i, tabcontent, tablinks;
+                d3.select("svg").remove();
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    //tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
 
-                var x = d3.scaleLinear().domain([1890, 2020]).range([0, 150]);
-                var y = d3.scaleLinear().domain([0, 42]).range([300, 0]);
-
-                //const data = await d3.csv("data/athlete_events.csv");
-                const data = await d3.csv('https://srasi1.github.io/data/athlete_events.csv');
-                //const data = await d3.csv("https://raw.githubusercontent.com/srasi1/srasi1.github.io/main/data/athlete_events.csv");
+                document.getElementById(pageName).style.display = "block";
+                if(evnt!==0)
+                    evnt.currentTarget.className += " active";
                 
-                d3.select('body')
-                  .selectAll('p')
-                  .data(data)
-                  .enter()
-                  .append('p')
-                  .html(function(d, i) { return (
-                    'Name: ' + d.Name + " " +
-                    'Country: ' + d.NOC + " "
-                  ); });
+                if(pageName === 'YearCountry') {
+                    YearCountry.display();
+                    tablinks[1].className += " active";
+                }
+                    
+                if(pageName === 'Overall') {
+                    Overall.display();
+                    tablinks[0].className += " active";
+                }
             }
+            DisplayPage(0, 'Overall');
+
         </script>
     </body>
 </html>
