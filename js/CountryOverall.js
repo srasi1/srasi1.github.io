@@ -7,7 +7,7 @@ var Overall={
         //var width = 5000;
         //var height = 1200;
         var width = 3000;
-        var height = 400;
+        var height = 800;
 
 
         const data = await d3.csv('https://srasi1.github.io/data/athlete_events.csv');
@@ -62,6 +62,11 @@ var Overall={
             sortableCntList.push([country, totalMedals[country]]);
         }
 
+        // filtering for only countries with more than 0 medals in total
+        sortableCntList = sortableCntList.filter(function (d) { 
+            return parseInt(d.toString().split(",")[1]) > 0 
+          });
+
         sortableCntList.sort(function(a, b) {
             return b[1] - a[1];
         });
@@ -105,11 +110,11 @@ var Overall={
             .attr("transform", "translate("+margins.top+","+margins.bottom+")")
             .call(d3.axisLeft(y));
 
-         svg.append("text")
+        svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "end")
-            .attr("x", 5)
-            .attr("y", -100) 
+            .attr("x", 50)
+            .attr("y", -10) 
             .selectAll("text")
             .attr("transform", "rotate(-90)")
             .text("Number of Total Medals");

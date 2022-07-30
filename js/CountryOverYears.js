@@ -1,9 +1,9 @@
-var YearCountry={
+var CountryOverYears={
     // Year-Season (Games) is Dropdown
     display: async function() {
-        d3.select("#YearCountry").selectAll("text").remove();
-        d3.select("#YearCountry").selectAll("svg").remove();
-        d3.select("#YearCountry").selectAll("#gameDiv").remove();
+        d3.select("#CountryOverYears").selectAll("text").remove();
+        d3.select("#CountryOverYears").selectAll("svg").remove();
+        d3.select("#CountryOverYears").selectAll("#countryDiv").remove();
         
         var margins = {top: 50, right: 50, bottom: 50, left: 50};
         //var width = 5000;
@@ -14,118 +14,109 @@ var YearCountry={
         const data = await d3.csv('https://srasi1.github.io/data/athlete_events.csv');
         //const data = await d3.csv("https://raw.githubusercontent.com/srasi1/srasi1.github.io/main/data/athlete_events.csv");
 
+        var countriesList = data.map(rec => rec["NOC"]);
+        countriesList = [...new Set(countriesList)].sort();
+
         var gamesList = data.map(rec => rec["Games"]);
         gamesList = [...new Set(gamesList)].sort();
 
-        var countryList = data.map(rec => rec["NOC"]);
-        countryList = [...new Set(countryList)];
-        
-        var maxMedals = 0, maxCountry = '';
+        var maxMedals = 0, maxGame = '';
 
-        function getSortedList(game) {
-            var filteredData = data.filter(function (d) { return d.Games === game; });
+        function getCountryMedalsList(country) {
+            var filteredData = data.filter(function (d) { return d.NOC === country; });
 
             var gMedals = {};
             var sMedals = {};
             var bMedals = {};
             var totalMedals = {};
-            var sortableCntList = [];
-
-            for(var i = 0; i < filteredData.length; i++){
-                gMedals[filteredData[i].NOC] = 0;
-                sMedals[filteredData[i].NOC] = 0;
-                bMedals[filteredData[i].NOC] = 0;
-                totalMedals[filteredData[i].NOC] = 0;
+            var sortableGameList = [];
+            
+            for(var i = 0; i < gamesList.length; i ++) {
+                gMedals[gamesList[i]] = 0;
+                sMedals[gamesList[i]] = 0;
+                bMedals[gamesList[i]] = 0;
+                totalMedals[gamesList[i]] = 0;
             }
 
             for(var i=0; i < filteredData.length; i++) {
     
                 if(filteredData[i].Medal === "Gold") {
-                    gMedals[filteredData[i].NOC]  = parseInt(gMedals[filteredData[i].NOC]) + 1;
-                    totalMedals[filteredData[i].NOC] = parseInt(totalMedals[filteredData[i].NOC]) + 1;
+                    gMedals[filteredData[i].Games]  = parseInt(gMedals[filteredData[i].Games]) + 1;
+                    totalMedals[filteredData[i].Games] = parseInt(totalMedals[filteredData[i].Games]) + 1;
                 }
     
                 if(filteredData[i].Medal === "Silver") {
-                    sMedals[filteredData[i].NOC]  = parseInt(sMedals[filteredData[i].NOC]) + 1;
-                    totalMedals[filteredData[i].NOC] = parseInt(totalMedals[filteredData[i].NOC]) + 1;
+                    sMedals[filteredData[i].Games]  = parseInt(sMedals[filteredData[i].Games]) + 1;
+                    totalMedals[filteredData[i].Games] = parseInt(totalMedals[filteredData[i].Games]) + 1;
                 }
     
                 if(filteredData[i].Medal === "Bronze") {
-                    bMedals[filteredData[i].NOC]  = parseInt(bMedals[filteredData[i].NOC]) + 1;
-                    totalMedals[filteredData[i].NOC] = parseInt(totalMedals[filteredData[i].NOC]) + 1;
+                    bMedals[filteredData[i].Games]  = parseInt(bMedals[filteredData[i].Games]) + 1;
+                    totalMedals[filteredData[i].Games] = parseInt(totalMedals[filteredData[i].Games]) + 1;
                 }
             }
 
-            for(const [cnty, totMed] of Object.entries(totalMedals)) {
+            for(const [yearGame, totMed] of Object.entries(totalMedals)) {
                 var x = parseInt(totMed);
                 if (maxMedals < x) {
                     maxMedals = x;
-                    maxCountry = cnty;
+                    maxGame = yearGame;
                 }
             }
 
-            for (var country in totalMedals) {
-                sortableCntList.push([country, totalMedals[country]]);
+            for (var i = 0; i < gamesList.length; i++) {
+                sortableGameList.push([gamesList[i], totalMedals[gamesList[i]]]);
             }
 
-            sortableCntList = sortableCntList.filter(function (d) { 
-                return parseInt(d.toString().split(",")[1]) > 0 
-            });
-
-            sortableCntList.sort(function(a, b) {
-                return b[1] - a[1];
-            });
-
-            return sortableCntList;
+            return sortableGameList;
 
         }
 
-        d3.select("#YearCountry").append("div")
-            .attr("id", "gameDiv")
+        d3.select("#CountryOverYears").append("div")
+            .attr("id", "countryDiv")
             .append("label")
-            .text("Select a Game (Year Season): ")
+            .text("Select a Country: ")
             .attr("style", "font-size:15px;font-weight:bold;");
 
-        d3.select("#YearCountry")
-            .select("#gameDiv")
+        d3.select("#CountryOverYears")
+            .select("#countryDiv")
             .append("select")
-            .attr("id", "gameButton")
+            .attr("id", "countryButton")
             .selectAll("myOptions")
-            .data(gamesList)
+            .data(countriesList)
             .enter().append("option")
             .text(function (d) { return d; })
             .attr("value", function(d) { return d; });
+
         
-        //var initList = getSortedList('1896 Summer');
-        refreshChart('1896 Summer');
-        
-        d3.select('#gameButton').on("change", function(d) {
-            var selectedGame = d3.select(this).property("value");
-            refreshChart(selectedGame);
+        refreshChart('AFG');
+        d3.select('#countryButton').on("change", function(d) {
+            var selectedCountry = d3.select(this).property("value");
+            refreshChart(selectedCountry);
         })
         
-        function refreshChart(game) {
+        function refreshChart(country) {
+            //alert(country + " is selected");
 
-            d3.select("#YearCountry").selectAll("text").remove();
-            d3.select("#YearCountry").selectAll("svg").remove();
-            d3.select("#YearCountry").selectAll("g").remove();
-            //console.log("All removed");
+            d3.select("#CountryOverYears").selectAll("text").remove();
+            d3.select("#CountryOverYears").selectAll("svg").remove();
+            d3.select("#CountryOverYears").selectAll("g").remove();
 
-            var sortedList = getSortedList(game);
+            var sortedList = getCountryMedalsList(country);
 
-            var svg = d3.select("#YearCountry").append("svg")
+            var svg = d3.select("#CountryOverYears").append("svg")
                 .attr("width", width + 2 * margins.left)
                 .attr("height", height + 2 * margins.bottom);
-
+            
             var x = d3.scaleBand()
                 .domain(sortedList.map(function(d) { return d.toString().split(",")[0] ; }))
                 .range([0, width])
                 .padding(0.1);
-            
+
             var y = d3.scaleLinear()
                 .domain([0, maxMedals + 100])
                 .range([height, 0]);
-
+            
             svg.append("g").attr("transform", "translate("+ margins.left +","+ margins.right +")").selectAll("rect")
                 .data(sortedList)
                 .enter().append("rect")
@@ -134,7 +125,7 @@ var YearCountry={
                 .attr("width", x.bandwidth())
                 .attr("height", function(d, i) { return height - y(parseInt(d.toString().split(",")[1])); });
             
-            d3.select("#YearCountry")
+            d3.select("#CountryOverYears")
                 .append("svg")
                 .attr("height",20)
                 .append("g")

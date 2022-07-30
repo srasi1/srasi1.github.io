@@ -13,9 +13,9 @@
         <style> rect {fill: lightblue; stroke: black; }</style>
         
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <script src="js/YearCountry.js"></script>
-        <!--script src="js/YearCountry.js"></script-->
         <script src="js/CountryOverall.js"></script>
+        <script src="js/YearCountry.js"></script>
+        <script src="js/CountryOverYears.js"></script>
         
     </head>
     <svg width=8000 height=6000></svg>
@@ -24,7 +24,7 @@
         <div class="tab">
             <button class="tablinks" onclick="DisplayPage(event, 'Overall')">All-time Highest Medals Winners by Country</button>
             <button class="tablinks" onclick="DisplayPage(event, 'YearCountry')">Yearly Highest Medals Winners by Country</button>
-            <!--button class="tablinks" onclick="DisplayPage(event, 'Overall')">Highest Medals Winners by Country</button-->
+            <button class="tablinks" onclick="DisplayPage(event, 'CountryOverYears')">Medals Won by Country Over Years</button>
         </div>
 
         <div id="Overall" class="tabcontent">
@@ -36,6 +36,12 @@
         <div id="YearCountry" class="tabcontent">
             <div id="tooltip">Hello</div>
             <p>Yearly Highest number of medals winners by Country</p>
+            <hr>
+        </div>
+
+        <div id="CountryOverYears" class="tabcontent">
+            <div id="tooltip">Hello</div>
+            <p>Number of medals won by the Country over Years</p>
             <hr>
         </div>
 
@@ -56,16 +62,23 @@
                 document.getElementById(pageName).style.display = "block";
                 if(evnt!==0)
                     evnt.currentTarget.className += " active";
-                
-                if(pageName === 'YearCountry') {
-                    YearCountry.display();
-                    tablinks[1].className += " active";
-                }
-                    
+
                 if(pageName === 'Overall') {
                     Overall.display();
                     tablinks[0].className += " active";
                 }
+                    
+                if(pageName === 'YearCountry') {
+                    YearCountry.display();
+                    tablinks[1].className += " active";
+                }
+
+                if(pageName === 'CountryOverYears') {
+                    CountryOverYears.display();
+                    tablinks[2].className += " active";
+                }
+                    
+
             }
             DisplayPage(0, 'Overall');
 
