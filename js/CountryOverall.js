@@ -91,7 +91,10 @@ var Overall={
             .attr("x", function(d, i) { return x(d.toString().split(",")[0]); })
             .attr("y", function(d, i) { return y(parseInt(d.toString().split(",")[1])); } )
             .attr("width", x.bandwidth())
-            .attr("height", function(d, i) { return height - y(parseInt(d.toString().split(",")[1])); });
+            //.attr("width", 2)
+            .attr("height", function(d, i) { return height - y(parseInt(d.toString().split(",")[1])); })
+            .on("mouseover", dv_onMouseOver)
+            .on("mouseout", dv_OnMouseOut);
 
         d3.select("#Overall")
             .append("svg")
@@ -110,21 +113,59 @@ var Overall={
             .attr("transform", "translate("+margins.top+","+margins.bottom+")")
             .call(d3.axisLeft(y));
 
-        svg.append("text")
+        var y_label = d3.select('#Overall')
+            .append('div')
+            .attr('class', 'y label');
+
+            d3.select("svg").append("g").append("text")
             .attr("class", "y label")
             .attr("text-anchor", "end")
-            .attr("x", 50)
-            .attr("y", -10) 
-            .selectAll("text")
+            .attr("x", 500)
+            .attr("y", -100)
+            .attr("dy", ".75em")
+            //.selectAll("text")
             .attr("transform", "rotate(-90)")
-            .text("Number of Total Medals");
-
+            .text("Total Number of Medals Won");
+        
         var g = d3.select("svg").append("g")
             .attr("transform", "translate("+margins.top+","+(height+margins.bottom)+")")
             .call(d3.axisBottom(x))
             .selectAll("text")
             .attr("transform", "translate(-10, 0)rotate(-45)")
             .style("text-anchor", "end");
+
+        var dv_tooltip = d3.select('#Overall')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('display', 'none');
+        
+        function dv_onMouseOver() {
+            d3.select(this)
+            .attr("r", 10)
+            .transition()
+            .duration(200)
+            .style("opacity", 1.85);
+            
+            var d = d3.select(this).data()[0]
+            var html = "<span style = 'font-size:15px;color:mediumorchid'><b> Country: </b>" + d.toString().split(",")[0] + "</span></br>" +
+            "<span style = 'font-size:12px;color:mediumorchid'><b> Total Medals: </b>" + parseInt(d.toString().split(",")[1]) + "</span>";
+            
+            dv_tooltip
+            .style('display', 'inline')
+            .html(html)
+            .style('position', "absolute")
+            .style('left', (d3.event.pageX + 10) + 'px')
+            .style('top', (d3.event.pageY + 10) + 'px')
+            .style('width', 100)
+            .style('height', 80)
+            .style('background', function(){ return("lightgrey"); });
+
+        }
+
+        function dv_OnMouseOut() {
+            d3.select(this).attr("r", 4);
+            dv_tooltip.style('display', 'none');
+        }
 
 
     }

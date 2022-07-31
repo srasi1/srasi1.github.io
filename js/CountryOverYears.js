@@ -9,7 +9,7 @@ var CountryOverYears={
         //var width = 5000;
         //var height = 1200;
         var width = 1000;
-        var height = 500;
+        var height = 600;
 
         const data = await d3.csv('https://srasi1.github.io/data/athlete_events.csv');
         //const data = await d3.csv("https://raw.githubusercontent.com/srasi1/srasi1.github.io/main/data/athlete_events.csv");
@@ -123,7 +123,9 @@ var CountryOverYears={
                 .attr("x", function(d, i) { return x(d.toString().split(",")[0]); })
                 .attr("y", function(d, i) { return y(parseInt(d.toString().split(",")[1])); } )
                 .attr("width", x.bandwidth())
-                .attr("height", function(d, i) { return height - y(parseInt(d.toString().split(",")[1])); });
+                .attr("height", function(d, i) { return height - y(parseInt(d.toString().split(",")[1])); })
+                .on("mouseover", dv_onMouseOver)
+                .on("mouseout", dv_OnMouseOut);
             
             d3.select("#CountryOverYears")
                 .append("svg")
@@ -154,8 +156,46 @@ var CountryOverYears={
                 .attr("transform", "translate("+margins.top+","+(height+margins.bottom)+")")
                 .call(d3.axisBottom(x))
                 .selectAll("text")
-                .attr("transform", "translate(-10, 0)rotate(-45)")
+                .attr("transform", "translate(-10, 0)rotate(-30)")
                 .style("text-anchor", "end");
+
+            // Tooltip code starts here
+
+            var dv_tooltip = d3.select('#CountryOverYears')
+                .append('div')
+                .attr('class', 'tooltip')
+                .style('display', 'none');
+        
+            function dv_onMouseOver() {
+                d3.select(this)
+                .attr("r", 10)
+                .transition()
+                .duration(200)
+                .style("opacity", 1.85);
+            
+                var d = d3.select(this).data()[0]
+                var html = "<span style = 'font-size:15px;color:mediumorchid;position:center'><b>" + country + "</b></span></br>" +
+                "<span style = 'font-size:15px;color:mediumorchid'><b> Olympic event: </b>" + d.toString().split(",")[0] + "</span></br>" +
+                "<span style = 'font-size:12px;color:mediumorchid'><b> Total Medals: </b>" + parseInt(d.toString().split(",")[1]) + "</span>";
+            
+                dv_tooltip
+                    .style('display', 'inline')
+                    .html(html)
+                    .style('position', "absolute")
+                    .style('left', (d3.event.pageX + 10) + 'px')
+                    .style('top', (d3.event.pageY + 10) + 'px')
+                    .style('width', 150)
+                    .style('height', 100)
+                    .style('background', function(){ return("lightgrey"); });
+
+            }
+
+            function dv_OnMouseOut() {
+                d3.select(this).attr("r", 4);
+                dv_tooltip.style('display', 'none');
+            }
+
+            // Tooltip code ends here
 
         } 
 

@@ -80,6 +80,19 @@ var YearCountry={
 
         }
 
+        d3.select("#YearCountry").append("svg")
+            .attr("height", 20)
+            .append("g")
+            .append("text")
+            .transition()
+            .duration(100)
+            .attr("x", 0).attr("y", 20)
+            .attr("id", "annotation")
+            .text("Hover the mouse")
+            .attr("font-size", "14px")
+            .attr("font-weight", "bold")
+            .style("fill", "blue");
+
         d3.select("#YearCountry").append("div")
             .attr("id", "gameDiv")
             .append("label")
@@ -132,7 +145,9 @@ var YearCountry={
                 .attr("x", function(d, i) { return x(d.toString().split(",")[0]); })
                 .attr("y", function(d, i) { return y(parseInt(d.toString().split(",")[1])); } )
                 .attr("width", x.bandwidth())
-                .attr("height", function(d, i) { return height - y(parseInt(d.toString().split(",")[1])); });
+                .attr("height", function(d, i) { return height - y(parseInt(d.toString().split(",")[1])); })
+                .on("mouseover", dv_onMouseOver)
+                .on("mouseout", dv_OnMouseOut);
             
             d3.select("#YearCountry")
                 .append("svg")
@@ -166,7 +181,45 @@ var YearCountry={
                 .attr("transform", "translate(-10, 0)rotate(-45)")
                 .style("text-anchor", "end");
 
-        } 
+            // Tooltip code starts here
+
+            var dv_tooltip = d3.select('#YearCountry')
+                .append('div')
+                .attr('class', 'tooltip')
+                .style('display', 'none');
+        
+            function dv_onMouseOver() {
+                d3.select(this)
+                .attr("r", 10)
+                .transition()
+                .duration(200)
+                .style("opacity", 1.85);
+            
+                var d = d3.select(this).data()[0]
+                var html = "<span style = 'font-size:15px;color:mediumorchid;position:center'><b>" + game + "</b></span></br>" +
+                "<span style = 'font-size:15px;color:mediumorchid'><b> Country: </b>" + d.toString().split(",")[0] + "</span></br>" +
+                "<span style = 'font-size:12px;color:mediumorchid'><b> Total Medals: </b>" + parseInt(d.toString().split(",")[1]) + "</span>";
+            
+                dv_tooltip
+                    .style('display', 'inline')
+                    .html(html)
+                    .style('position', "absolute")
+                    .style('left', (d3.event.pageX + 10) + 'px')
+                    .style('top', (d3.event.pageY + 10) + 'px')
+                    .style('width', 150)
+                    .style('height', 100)
+                    .style('background', function(){ return("lightgrey"); });
+
+            }
+
+            function dv_OnMouseOut() {
+                d3.select(this).attr("r", 4);
+                dv_tooltip.style('display', 'none');
+            }
+
+            // Tooltip code ends here
+
+        }
 
     }
 }
