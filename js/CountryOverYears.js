@@ -127,19 +127,20 @@ var CountryOverYears={
                 .on("mouseover", dv_onMouseOver)
                 .on("mouseout", dv_OnMouseOut);
             
-            d3.select("#CountryOverYears")
-                .append("svg")
+            //d3.select("#CountryOverYears")
+            svg.append("svg")
                 .attr("height",20)
                 .append("g")
                 .append('text')
                 .transition().duration(300)
-                    .attr("x", 0).attr("y", 10)
+                    .attr("x", 0).attr("y", 20)
                     .attr("id","annotation")
                 .text("Hover the mouse over the Bars for more details")
                     .attr("font-size", "12px")
-                    .attr("font-weight","italic").style("fill", "blue").attr("font-weight","bold");
+                    .attr("font-weight","italic").style("fill", "mediumorchid").attr("font-weight","bold");
 
-            d3.select("svg").append("g")
+            //d3.select("svg").append("g")
+            svg.append("g")
                 .attr("transform", "translate("+margins.top+","+margins.bottom+")")
                 .call(d3.axisLeft(y));
             
@@ -152,7 +153,8 @@ var CountryOverYears={
                 .attr("transform", "rotate(-90)")
                 .text("Number of Total Medals");
             
-            var g = d3.select("svg").append("g")
+            //var g = d3.select("svg").append("g")
+            svg.append("g")
                 .attr("transform", "translate("+margins.top+","+(height+margins.bottom)+")")
                 .call(d3.axisBottom(x))
                 .selectAll("text")

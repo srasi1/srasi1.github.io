@@ -96,17 +96,17 @@ var Overall={
             .on("mouseover", dv_onMouseOver)
             .on("mouseout", dv_OnMouseOut);
 
-        d3.select("#Overall")
-            .append("svg")
+        //d3.select("#Overall")
+        svg.append("svg")
             .attr("height",20)
             .append("g")
             .append('text')
             .transition().duration(300)
-                .attr("x", 0).attr("y", 10)
+                .attr("x", 0).attr("y", 20)
                 .attr("id","annotation")
             .text("Hover the mouse over the Bars for more details")
                 .attr("font-size", "12px")
-                .attr("font-weight","italic").style("fill", "blue").attr("font-weight","bold");
+                .attr("font-weight","italic").style("fill", "mediumorchid").attr("font-weight","bold");
 
 
         d3.select("svg").append("g")
@@ -117,11 +117,12 @@ var Overall={
             .append('div')
             .attr('class', 'y label');
 
-            d3.select("svg").append("g").append("text")
+        //d3.select("svg").append("g").append("text")
+        svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "end")
-            .attr("x", 500)
-            .attr("y", -100)
+            .attr("x", 10)
+            .attr("y", -50)
             .attr("dy", ".75em")
             //.selectAll("text")
             .attr("transform", "rotate(-90)")
