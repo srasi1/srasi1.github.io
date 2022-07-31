@@ -17,7 +17,7 @@
         <script src="js/YearCountry.js"></script>
         <script src="js/CountryOverYears.js"></script>
 
-        <!--   EXPERIMENTATION           -->
+        <!--   BG logo code      -->
 
         <div class="text-things">
             <h1> 120 years of Olympic Games — How to analyze and visualize the history with D3 JS</h1>
@@ -28,6 +28,7 @@
                 Between 1912 and 1920, and 1936 and 1948, there are two long periods without any Games, corresponding to WWI and WWII.
 
                 (<a href="https://towardsdatascience.com/120-years-of-olympic-games-how-to-analyze-and-visualize-the-history-with-r-3c2a5f3bf875">reference</a>)
+                <br><br>
                 
             </p>
         </div>
@@ -36,33 +37,42 @@
         </div>
 
 
-        <!--    EXPERIMENTATION ENDS HERE -->
+        <!--    BG logo code ENDS HERE -->
         
     </head>
     <svg width=8000 height=6000></svg>
     <body>
 
         <div class="tab">
-            <button class="tablinks" onclick="DisplayPage(event, 'Overall')"><b>All-time Highest Medals Winners by Country</b></button>
-            <button class="tablinks" onclick="DisplayPage(event, 'YearCountry')"><b>Medals Winners of the Event by Country</b></button>
+            <button class="tablinks" onclick="DisplayPage(event, 'Overall')"><b>All-time total Medals Won by Country</b></button>
+            <button class="tablinks" onclick="DisplayPage(event, 'YearCountry')"><b>Number of Medals Winners of the Event by Country</b></button>
             <button class="tablinks" onclick="DisplayPage(event, 'CountryOverYears')"><b>Medals Won by Country Over Years</b></button>
         </div>
 
         <div id="Overall" class="tabcontent">
             <!--div id="tooltip">Hello</div-->
-            <p>All-time Highest number of medal winners by Country. The numbers are aggregated numbers over all the Olympic events.</p>
+            <p style="color:rgb(3, 83, 110);font-weight:bold">
+                All-time total number of medals won by Country. The numbers are aggregated total number of medals won by each country over all the Olympic events.
+                The countries and number are visualized in descending order of the total medals won by country.
+            </p>
             <hr>
         </div>
 
         <div id="YearCountry" class="tabcontent">
             <!--div id="tooltip">Hello</div-->
-            <p>Medal winners by Country for the event.</p>
+            <p style="color:rgb(3, 83, 110);font-weight:bold">
+                Total number of medals won by each country in the selected Olympic event (Year Season). 
+                The bar chart is visualized in descending order of total number of medals won by country in the event. 
+            </p>
             <hr>
         </div>
 
         <div id="CountryOverYears" class="tabcontent">
             <!--div id="tooltip">Hello</div-->
-            <p>Number of medals won by the Country over Years</p>
+            <p style="color:rgb(3, 83, 110);font-weight:bold">
+                The bar chart visualizes the total number of medals won by the selected country in each Olympic event.
+                The bar chart is visualized in chronological order of the Olympic events (1896 Summer to 2016 Summer)
+            </p>
             <hr>
         </div>
 

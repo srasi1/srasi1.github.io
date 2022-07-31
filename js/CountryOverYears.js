@@ -141,25 +141,34 @@ var CountryOverYears={
 
             //d3.select("svg").append("g")
             svg.append("g")
+                .attr("id", "y")
                 .attr("transform", "translate("+margins.top+","+margins.bottom+")")
                 .call(d3.axisLeft(y));
-            
+
             svg.append("text")
                 .attr("class", "y label")
-                .attr("text-anchor", "end")
-                .attr("x", 5)
-                .attr("y", -100) 
-                .selectAll("text")
-                .attr("transform", "rotate(-90)")
-                .text("Number of Total Medals");
+                //.attr("text-anchor", "end")
+                .attr("x", 200)
+                .attr("y", height - 600)
+                .attr("dy", ".75em")
+                //.selectAll("text")
+                .attr("transform", "translate(0," + height + ") rotate(-90)")
+                .text("Number of Medals Won");
             
             //var g = d3.select("svg").append("g")
             svg.append("g")
                 .attr("transform", "translate("+margins.top+","+(height+margins.bottom)+")")
+                .attr("id", "x")
                 .call(d3.axisBottom(x))
                 .selectAll("text")
                 .attr("transform", "translate(-10, 0)rotate(-30)")
                 .style("text-anchor", "end");
+
+            svg.append("text")
+                .attr("class", "x label")
+                .attr("x", 400)
+                .attr("y", height + 100)
+                .text("Olympic Event - Year and Season")
 
             // Tooltip code starts here
 
