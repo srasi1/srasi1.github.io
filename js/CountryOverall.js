@@ -178,6 +178,46 @@ var Overall={
             dv_tooltip.style('display', 'none');
         }
 
+        // Adding Annotation Code here
+        //alert(sortableCntList[0]);
+        var cntName = "United States Of America";
+        var usaMedals = parseInt(sortableCntList[0].toString().split(",")[1]);
+
+        const annotations = [
+            {
+                note: {
+                    label: "" + cntName + " --> " + usaMedals + " ",
+                    lineType: "none",
+                    bgPadding: {"top": 10, "left": 10, "right": 10, "bottom": 10},
+                    title: "Highest Number of Medals Won",
+                    orientation: "leftRight",
+                    "align": "middle"
+                },
+                type: d3.annotationCalloutElbow,
+                connector: { end: "arrow" },
+                subject: {radius: 5},
+                x: x + 5,
+                y: y + usaMedals,
+                dx: "60",
+                dy: "60"
+            },
+        ];
+
+        const calloutWithArrow = d3.annotationCustomType(d3.annotationCalloutElbow, {
+            connector: { end: "arrow" },
+          });
+
+        //const makeAnnotations = d3.annotation().type(calloutWithArrow).annotations(annotations);
+        const makeAnnotations = d3.annotation().annotations(annotations);
+
+        d3.select("svg")
+            .append("g")
+            .attr("transform",
+                "translate(" + margins.left + "," + margins.top + ")")
+            .attr("class", "annotation-group")
+            .call(makeAnnotations)
+
+        // Annotation code ends here
 
     }
 }
