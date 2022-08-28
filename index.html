@@ -16,6 +16,7 @@
         <script src="js/CountryOverall.js"></script>
         <script src="js/YearCountry.js"></script>
         <script src="js/CountryOverYears.js"></script>
+        <script src="js/TopTen.js"></script>
 
         <!--   BG logo code      -->
 
@@ -47,6 +48,7 @@
             <button class="tablinks" onclick="DisplayPage(event, 'Overall')"><b>All-time total Medals Won by Country</b></button>
             <button class="tablinks" onclick="DisplayPage(event, 'YearCountry')"><b>Number of Medals Winners of the Event by Country</b></button>
             <button class="tablinks" onclick="DisplayPage(event, 'CountryOverYears')"><b>Medals Won by Country Over Years</b></button>
+            <button class="tablinks" onclick="DisplayPage(event, 'TopTen')"><b>Top Ten Countries - Medals Won</b></button>
         </div>
 
         <div id="Overall" class="tabcontent">
@@ -71,6 +73,15 @@
             <!--div id="tooltip">Hello</div-->
             <p style="color:rgb(3, 83, 110);font-weight:bold">
                 The bar chart visualizes the total number of medals won by the selected country in each Olympic event.
+                The bar chart is visualized in chronological order of the Olympic events (1896 Summer to 2016 Summer)
+            </p>
+            <hr>
+        </div>
+
+        <div id="TopTen" class="tabcontent">
+            <!--div id="tooltip">Hello</div-->
+            <p style="color:rgb(3, 83, 110);font-weight:bold">
+                The bar chart visualizes the Top Ten countries by number of medals won.
                 The bar chart is visualized in chronological order of the Olympic events (1896 Summer to 2016 Summer)
             </p>
             <hr>
@@ -106,6 +117,11 @@
 
                 if(pageName === 'CountryOverYears') {
                     CountryOverYears.display();
+                    //tablinks[2].className += " active";
+                }
+
+                if(pageName === 'TopTen') {
+                    TopTen.display();
                     //tablinks[2].className += " active";
                 }
                     
